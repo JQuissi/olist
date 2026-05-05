@@ -31,7 +31,7 @@ main/
 │       └── df_reviews_clean.pkl
 ├── index.html          # Página de apresentação do projeto (GitHub Pages)
 ├── README.md           # Este arquivo
-
+```
 
 ## Página de Apresentação
 
