@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olist — Logística como Vantagem Competitiva</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --black: #090909;
+        --white: #f5f2ec;
+        --gold: #e8b84b;
+        --gold-dim: #a37f2a;
+        --red: #e03c3c;
+        --teal: #3abfb1;
+        --gray: #1e1e1e;
+        --gray2: #2e2e2e;
+        --muted: #6b6b6b;
+        --slide-w: 1280px;
+        --slide-h: 720px;
+      }
+
+      html {
+        background: #000;
+        font-family: "DM Sans", sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px 80px;
+        gap: 0;
+        background: #0a0a0a;
+      }
+
+      /* NAV */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(9, 9, 9, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid #222;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 32px;
+      }
+      .nav-brand {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--gold);
+        letter-spacing: 3px;
+      }
+      .nav-dots {
+        display: flex;
+        gap: 8px;
+      }
+      .nav-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gray2);
+        cursor: pointer;
+        transition: background 0.2s;
+        border: none;
+      }
+      .nav-dot.active {
+        background: var(--gold);
+      }
+      .nav-counter {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* SLIDE WRAPPER */
+      .slides-container {
+        margin-top: 64px;
+        width: 100%;
+        max-width: var(--slide-w);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .slide {
+        width: 100%;
+        aspect-ratio: 16/9;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid #1a1a1a;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .slide.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* SLIDE NUMBERS */
+      .slide-num {
+        position: absolute;
+        bottom: 28px;
+        right: 36px;
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        color: var(--muted);
+        opacity: 0.5;
+      }
+
+      /* ===== SLIDE 1 — CAPA ===== */
+      #s1 {
+        background: var(--black);
+        padding: 60px 80px;
+      }
+      #s1 .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(232, 184, 75, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(232, 184, 75, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      #s1 .bg-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+      #s1 .tag {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        color: var(--gold);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        opacity: 0.8;
+      }
+      #s1 h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(48px, 6vw, 88px);
+        line-height: 1;
+        color: var(--white);
+        max-width: 800px;
+        margin-bottom: 8px;
+      }
+      #s1 h1 span {
+        color: var(--gold);
+      }
+      #s1 .sub {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 540px;
+        line-height: 1.6;
+        margin-bottom: 48px;
+        font-weight: 300;
+      }
+      #s1 .metrics-row {
+        display: flex;
+        gap: 40px;
+        border-top: 1px solid var(--gray2);
+        padding-top: 32px;
+      }
+      #s1 .metric {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      #s1 .metric-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 40px;
+        color: var(--gold);
+        line-height: 1;
+      }
+      #s1 .metric-lbl {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      #s1 .deco-circle {
+        position: absolute;
+        right: -80px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 480px;
+        height: 480px;
+        border-radius: 50%;
+        border: 1px solid rgba(232, 184, 75, 0.12);
+        pointer-events: none;
+      }
+      #s1 .deco-circle::before {
+        content: "";
+        position: absolute;
+        inset: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(232, 184, 75, 0.08);
+      }
+
+      /* ===== SLIDE 2 — CONTEXTO ===== */
+      #s2 {
+        background: #0d0d0d;
+        padding: 60px 80px;
+      }
+      .slide-label {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+        opacity: 0.7;
+      }
+      #s2 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4.5vw, 64px);
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 40px;
+        max-width: 700px;
+      }
+      #s2 .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .context-card {
+        background: var(--gray);
+        border: 1px solid var(--gray2);
+        border-left: 3px solid var(--gold);
+        padding: 24px 28px;
+        border-radius: 2px;
+      }
+      .context-card .card-year {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        color: var(--gold);
+        opacity: 0.2;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .context-card .card-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .context-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .context-card .highlight {
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      /* ===== SLIDE 3 — PROBLEMA CENTRAL ===== */
+      #s3 {
+        background: var(--black);
+        padding: 60px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 80px;
+      }
+      #s3 .left {
+        display: flex;
+        flex-direction: column;
+      }
+      #s3 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        line-height: 1.05;
+        margin-bottom: 24px;
+      }
+      #s3 h2 span {
+        color: var(--red);
+      }
+      #s3 p {
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 480px;
+      }
+      .big-split {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .split-card {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 24px 28px;
+        border-radius: 4px;
+        border: 1px solid var(--gray2);
+      }
+      .split-card.ok {
+        border-left: 4px solid var(--teal);
+        background: rgba(58, 191, 177, 0.05);
+      }
+      .split-card.bad {
+        border-left: 4px solid var(--red);
+        background: rgba(224, 60, 60, 0.05);
+      }
+      .split-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 64px;
+        line-height: 1;
+        min-width: 120px;
+      }
+      .split-card.ok .split-val {
+        color: var(--teal);
+      }
+      .split-card.bad .split-val {
+        color: var(--red);
+      }
+      .split-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .split-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .split-sub {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .drop-badge {
+        align-self: flex-start;
+        background: rgba(224, 60, 60, 0.15);
+        color: var(--red);
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 6px 14px;
+        border-radius: 2px;
+        margin-top: 8px;
+        border: 1px solid rgba(224, 60, 60, 0.3);
+      }
+
+      /* ===== SLIDE 4 — KPIs FINANCEIROS ===== */
+      #s4 {
+        background: #0a0a0a;
+        padding: 60px 80px;
+      }
+      #s4 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        margin-bottom: 40px;
+      }
+      #s4 h2 span {
+        color: var(--gold);
+      }
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      .kpi-card {
+        padding: 28px 32px;
+        background: var(--gray);
+        border: 1px solid var(--gray2);
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+      }
+      .kpi-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gold);
+      }
+      .kpi-card.teal::before {
+        background: var(--teal);
+      }
+      .kpi-card.red::before {
+        background: var(--red);
+      }
+      .kpi-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .kpi-card.teal .kpi-val {
+        color: var(--teal);
+      }
+      .kpi-card.red .kpi-val {
+        color: var(--red);
+      }
+      .kpi-name {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .kpi-note {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+
+      .insight-bar {
+        background: rgba(232, 184, 75, 0.06);
+        border: 1px solid rgba(232, 184, 75, 0.15);
+        border-radius: 4px;
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .insight-icon {
+        font-size: 24px;
+      }
+      .insight-bar p {
+        font-size: 14px;
+        color: var(--white);
+        line-height: 1.5;
+      }
+      .insight-bar p strong {
+        color: var(--gold);
+      }
+
+      /* ===== SLIDE 5 — LOGÍSTICA SLA ===== */
+      #s5 {
+        background: var(--black);
+        padding: 60px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+      }
+      #s5 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        line-height: 1.05;
+        margin-bottom: 20px;
+      }
+      #s5 h2 em {
+        color: var(--gold);
+        font-style: normal;
+      }
+      #s5 p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 24px;
+      }
+      .lead-breakdown {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--gray2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .lead-row {
+        display: flex;
+        align-items: center;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--gray2);
+        gap: 16px;
+      }
+      .lead-row:last-child {
+        border-bottom: none;
+      }
+      .lead-step {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        width: 160px;
+        flex-shrink: 0;
+      }
+      .lead-bar-wrap {
+        flex: 1;
+        height: 8px;
+        background: var(--gray2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .lead-bar {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s ease;
+      }
+      .lead-days {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+        min-width: 60px;
+        text-align: right;
+      }
+      .lead-days span {
+        font-size: 12px;
+        color: var(--muted);
+        font-family: "DM Sans", sans-serif;
+      }
+      .lead-row.critical .lead-step {
+        color: var(--red);
+      }
+      .lead-row.critical .lead-days {
+        color: var(--red);
+      }
+
+      .sla-pill-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .sla-pill {
+        background: var(--gray);
+        border: 1px solid var(--gray2);
+        border-radius: 4px;
+        padding: 20px 24px;
+      }
+      .sla-pill-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+      }
+      .sla-pill-name {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .sla-pill-pct {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        color: var(--teal);
+      }
+      .sla-pill-pct.warn {
+        color: var(--red);
+      }
+      .sla-track {
+        height: 6px;
+        background: var(--gray2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .sla-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+      .sla-fill.ok {
+        background: var(--teal);
+        width: 91.89%;
+      }
+      .sla-fill.warn {
+        background: var(--red);
+        width: 8.11%;
+      }
+
+      /* ===== SLIDE 6 — MAPA REGIONAL ===== */
+      #s6 {
+        background: #0a0a0a;
+        padding: 60px 80px;
+      }
+      #s6 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      #s6 h2 span {
+        color: var(--red);
+      }
+      #s6 .intro {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 32px;
+        max-width: 700px;
+      }
+      .states-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+      }
+      .state-card {
+        background: var(--gray);
+        border: 1px solid var(--gray2);
+        border-radius: 4px;
+        padding: 16px 12px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .state-card.critical {
+        border-color: rgba(224, 60, 60, 0.4);
+        background: rgba(224, 60, 60, 0.06);
+      }
+      .state-card.warning {
+        border-color: rgba(232, 184, 75, 0.3);
+        background: rgba(232, 184, 75, 0.04);
+      }
+      .state-card.good {
+        border-color: rgba(58, 191, 177, 0.3);
+        background: rgba(58, 191, 177, 0.04);
+      }
+      .state-abbr {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+      }
+      .state-delay {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      .state-card.critical .state-delay {
+        color: var(--red);
+      }
+      .state-card.warning .state-delay {
+        color: var(--gold);
+      }
+      .state-card.good .state-delay {
+        color: var(--teal);
+      }
+      .state-label {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .legend-row {
+        display: flex;
+        gap: 24px;
+        margin-top: 20px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      /* ===== SLIDE 7 — MÓVEIS ===== */
+      #s7 {
+        background: var(--black);
+        padding: 60px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+      }
+      #s7 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        line-height: 1.05;
+        margin-bottom: 24px;
+      }
+      #s7 h2 em {
+        color: var(--gold);
+        font-style: normal;
+      }
+      #s7 p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .compare-table th {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--gray2);
+      }
+      .compare-table td {
+        padding: 14px;
+        font-size: 14px;
+        color: var(--white);
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .compare-table td:first-child {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .compare-table .bad-val {
+        color: var(--red);
+        font-weight: 700;
+      }
+      .compare-table .good-val {
+        color: var(--teal);
+        font-weight: 700;
+      }
+      .opp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .opp-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+        background: var(--gray);
+        border-radius: 4px;
+        border-left: 3px solid var(--gold);
+      }
+      .opp-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .opp-text {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .opp-text strong {
+        color: var(--white);
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      /* ===== SLIDE 8 — RECOMENDAÇÕES ===== */
+      #s8 {
+        background: #0a0a0a;
+        padding: 60px 80px;
+      }
+      #s8 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 4vw, 58px);
+        color: var(--white);
+        margin-bottom: 32px;
+      }
+      #s8 h2 span {
+        color: var(--gold);
+      }
+      .recs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .rec-card {
+        background: var(--gray);
+        border: 1px solid var(--gray2);
+        border-radius: 4px;
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .rec-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 80px;
+        color: rgba(232, 184, 75, 0.06);
+        position: absolute;
+        top: -8px;
+        right: 8px;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .rec-icon {
+        font-size: 28px;
+      }
+      .rec-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1.3;
+      }
+      .rec-body {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .rec-impact {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--gold);
+        margin-top: 4px;
+      }
+      .rec-impact::before {
+        content: "→";
+      }
+
+      /* ===== SLIDE 9 — CONCLUSÃO ===== */
+      #s9 {
+        background: var(--black);
+        padding: 60px 80px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      #s9 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(44px, 5vw, 72px);
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 24px;
+      }
+      #s9 h2 span {
+        color: var(--gold);
+      }
+      #s9 p {
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+      .pillars {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .pillar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        background: var(--gray);
+        border-radius: 4px;
+        border: 1px solid var(--gray2);
+      }
+      .pillar-n {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        color: var(--gold);
+        opacity: 0.4;
+        min-width: 36px;
+        line-height: 1;
+      }
+      .pillar-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .pillar-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .pillar-sub {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      #s9 .bg-quote {
+        position: absolute;
+        bottom: 30px;
+        left: 80px;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--muted);
+        opacity: 0.3;
+        text-transform: uppercase;
+      }
+
+      /* ===== SLIDE 10 — ENCERRAMENTO ===== */
+      #s10 {
+        background: var(--black);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 80px;
+        position: relative;
+      }
+      #s10 .bg-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(232, 184, 75, 0.06) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      #s10 .group-label {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 20px;
+        opacity: 0.7;
+      }
+      #s10 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(48px, 6vw, 80px);
+        color: var(--white);
+        line-height: 1.05;
+        margin-bottom: 16px;
+      }
+      #s10 h2 span {
+        color: var(--gold);
+      }
+      #s10 .tagline {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 500px;
+        line-height: 1.6;
+        font-weight: 300;
+        margin-bottom: 48px;
+      }
+      .names-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px 32px;
+        border-top: 1px solid var(--gray2);
+        padding-top: 32px;
+        max-width: 700px;
+      }
+      .name-chip {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 6px 14px;
+        border: 1px solid var(--gray2);
+        border-radius: 2px;
+        font-family: "DM Mono", monospace;
+      }
+
+      /* PROGRESS BAR */
+      .progress-wrap {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #111;
+        z-index: 200;
+      }
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+        transition: width 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <span class="nav-brand">OLIST — POSTECH</span>
+      <div class="nav-dots" id="navDots"></div>
+      <span class="nav-counter" id="navCounter">01 / 10</span>
+    </nav>
+
+    <!-- SLIDE 1 — CAPA -->
+    <div class="slides-container">
+      <section class="slide" id="s1">
+        <div class="bg-grid"></div>
+        <div class="bg-line"></div>
+        <div class="deco-circle"></div>
+        <div class="tag">
+          POSTECH · Data Analytics · Fase 1 · Tech Challenge
+        </div>
+        <h1>LOGÍSTICA <span>ESTRATÉGICA</span><br />NO E-COMMERCE</h1>
+        <p class="sub">
+          Diagnóstico de Performance e Recomendações de Investimento — Segmento
+          de Móveis · Olist 2016–2018
+        </p>
+        <div class="metrics-row">
+          <div class="metric">
+            <span class="metric-val">R$13,6M</span>
+            <span class="metric-lbl">Faturamento Bruto</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">~100K</span>
+            <span class="metric-lbl">Pedidos Analisados</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">2016–18</span>
+            <span class="metric-lbl">Período de Análise</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">8+</span>
+            <span class="metric-lbl">Dimensões de Dados</span>
+          </div>
+        </div>
+        <div class="slide-num">01</div>
+      </section>
+
+      <!-- SLIDE 2 — CONTEXTO -->
+      <section class="slide" id="s2">
+        <div class="slide-label">Contexto de Mercado</div>
+        <h2>O E-COMMERCE BRASILEIRO<br />EM TRANSFORMAÇÃO</h2>
+        <div class="cols">
+          <div class="context-card">
+            <div class="card-year">2016</div>
+            <div class="card-title">Crescimento mesmo em recessão</div>
+            <p>
+              Faturamento de
+              <span class="highlight">R$44,4 bilhões</span> (+7,4%). O canal
+              digital prova ser anticíclico, expandindo sua base de consumidores
+              enquanto o varejo físico recuava.
+            </p>
+          </div>
+          <div class="context-card">
+            <div class="card-year">2017</div>
+            <div class="card-title">Consolidação dos marketplaces</div>
+            <p>
+              <span class="highlight">+50 milhões de pedidos</span> no 1º
+              semestre. Plataformas como Olist democratizam o acesso de PMEs ao
+              digital — e assumem a complexidade logística.
+            </p>
+          </div>
+          <div class="context-card">
+            <div class="card-year">2018</div>
+            <div class="card-title">Fragilidade exposta</div>
+            <p>
+              A greve dos caminhoneiros revelou a dependência crítica do
+              <span class="highlight">modal rodoviário</span>. A cadeia
+              logística, baseada em longas distâncias, mostrou sua
+              vulnerabilidade.
+            </p>
+          </div>
+          <div class="context-card">
+            <div class="card-year">→</div>
+            <div class="card-title">A grande lição do período</div>
+            <p>
+              Crescimento sem eficiência logística é insustentável. O frete
+              passa de <span class="highlight">custo operacional</span> para
+              <span class="highlight">fator de viabilidade</span> do modelo de
+              negócio.
+            </p>
+          </div>
+        </div>
+        <div class="slide-num">02</div>
+      </section>
+
+      <!-- SLIDE 3 — PROBLEMA CENTRAL -->
+      <section class="slide" id="s3">
+        <div class="left">
+          <div class="slide-label">O Problema Central</div>
+          <h2>
+            QUANDO O ATRASO<br />VIRA <span>DESTRUIÇÃO</span><br />DE VALOR
+          </h2>
+          <p>
+            Um único dado resume a urgência estratégica: pedidos atrasados
+            recebem avaliação
+            <strong style="color: var(--white)">40% menor</strong>. Isso não é
+            dado de satisfação — é perda de LTV, aumento de churn e destruição
+            de marca.
+          </p>
+        </div>
+        <div class="big-split">
+          <div class="split-card ok">
+            <div class="split-val">4,29</div>
+            <div class="split-info">
+              <div class="split-title">Entregue no Prazo</div>
+              <div class="split-sub">Avaliação média · SLA cumprido</div>
+            </div>
+          </div>
+          <div class="split-card bad">
+            <div class="split-val">2,57</div>
+            <div class="split-info">
+              <div class="split-title">Entregue com Atraso</div>
+              <div class="split-sub">Avaliação média · SLA falho</div>
+            </div>
+          </div>
+          <div class="drop-badge">▼ QUEDA DE 40,1% NA PERCEPÇÃO DE VALOR</div>
+        </div>
+        <div class="slide-num">03</div>
+      </section>
+
+      <!-- SLIDE 4 — KPIs FINANCEIROS -->
+      <section class="slide" id="s4">
+        <div class="slide-label">Performance Comercial</div>
+        <h2>OS NÚMEROS QUE <span>DEFINEM</span> O CENÁRIO</h2>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-val">R$13,6M</div>
+            <div class="kpi-name">Faturamento Bruto Total</div>
+            <div class="kpi-note">
+              Crescimento consistente de volume, porém sem ganho proporcional de
+              eficiência operacional.
+            </div>
+          </div>
+          <div class="kpi-card teal">
+            <div class="kpi-val">R$137,03</div>
+            <div class="kpi-name">Ticket Médio por Pedido</div>
+            <div class="kpi-note">
+              Baixo ticket eleva sensibilidade ao custo logístico — qualquer
+              variação no frete corrói a margem diretamente.
+            </div>
+          </div>
+          <div class="kpi-card red">
+            <div class="kpi-val">14,21%</div>
+            <div class="kpi-name">Frete / Valor do Pedido</div>
+            <div class="kpi-note">
+              Frete consome 1 em cada 7 reais. No Norte/Nordeste, esse
+              percentual pode dobrar — tornando o negócio inviável.
+            </div>
+          </div>
+        </div>
+        <div class="insight-bar">
+          <div class="insight-icon">💡</div>
+          <p>
+            Com ticket médio de R$137,03 e frete a 14,21%, cada real ganho em
+            eficiência logística gera impacto direto e imediato na margem. A
+            <strong
+              >logística é a maior alavanca de rentabilidade disponível</strong
+            >.
+          </p>
+        </div>
+        <div class="slide-num">04</div>
+      </section>
+
+      <!-- SLIDE 5 — SLA E LEAD TIME -->
+      <section class="slide" id="s5">
+        <div>
+          <div class="slide-label">Eficiência Logística</div>
+          <h2>
+            12 DIAS DE<br /><em>LEAD TIME</em><br />COM UM GARGALO<br />INTERNO
+          </h2>
+          <p>
+            93,2% de SLA pode parecer bom. Mas os 6,8% de falha se concentram
+            onde o custo de recuperação de cliente é mais alto. O maior problema
+            é interno:
+            <strong style="color: var(--white)"
+              >3 dias perdidos antes de o pacote sair do seller</strong
+            >.
+          </p>
+          <div class="lead-breakdown">
+            <div class="lead-row critical">
+              <div class="lead-step">Aprovação → Postagem</div>
+              <div class="lead-bar-wrap">
+                <div
+                  class="lead-bar"
+                  style="background: var(--red); width: 25%"
+                ></div>
+              </div>
+              <div class="lead-days">~3 <span>dias</span></div>
+            </div>
+            <div class="lead-row">
+              <div class="lead-step">Postagem → Entrega</div>
+              <div class="lead-bar-wrap">
+                <div
+                  class="lead-bar"
+                  style="background: var(--gold); width: 75%"
+                ></div>
+              </div>
+              <div class="lead-days">~9 <span>dias</span></div>
+            </div>
+            <div class="lead-row">
+              <div class="lead-step">Total Médio</div>
+              <div class="lead-bar-wrap">
+                <div
+                  class="lead-bar"
+                  style="background: var(--teal); width: 100%"
+                ></div>
+              </div>
+              <div class="lead-days">12 <span>dias</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sla-pill-wrap">
+          <div class="slide-label" style="margin-bottom: 8px">
+            Cumprimento de SLA
+          </div>
+          <div class="sla-pill">
+            <div class="sla-pill-top">
+              <span class="sla-pill-name">Entregues no prazo</span>
+              <span class="sla-pill-pct">93,2%</span>
+            </div>
+            <div class="sla-track"><div class="sla-fill ok"></div></div>
+          </div>
+          <div class="sla-pill">
+            <div class="sla-pill-top">
+              <span class="sla-pill-name"
+                >Atrasos (impacto desproporcional)</span
+              >
+              <span class="sla-pill-pct warn">6,8%</span>
+            </div>
+            <div class="sla-track"><div class="sla-fill warn"></div></div>
+          </div>
+          <div class="insight-bar" style="margin-top: 8px">
+            <div class="insight-icon">⚡</div>
+            <p style="font-size: 13px">
+              <strong>25% do lead time</strong> é consumido antes do produto
+              sair. Resolver esse gargalo interno é a iniciativa de maior ROI
+              imediato disponível.
+            </p>
+          </div>
+        </div>
+        <div class="slide-num">05</div>
+      </section>
+
+      <!-- SLIDE 6 — MAPA REGIONAL -->
+      <section class="slide" id="s6">
+        <div class="slide-label">Análise Geográfica</div>
+        <h2>BRASIL DE <span>DUAS VELOCIDADES</span></h2>
+        <p class="intro">
+          A experiência de compra não é igual para todos os brasileiros.
+          Enquanto SP entrega em ~10 dias, Alagoas registra 23,93% de atraso —
+          criando clientes detratores nas regiões de maior crescimento
+          potencial.
+        </p>
+        <div class="states-grid">
+          <div class="state-card critical">
+            <div class="state-abbr">AL</div>
+            <div class="state-delay">23,93%</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card critical">
+            <div class="state-abbr">RR</div>
+            <div class="state-delay">alto</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card critical">
+            <div class="state-abbr">AM</div>
+            <div class="state-delay">alto</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card critical">
+            <div class="state-abbr">MA</div>
+            <div class="state-delay">alto</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card warning">
+            <div class="state-abbr">PA</div>
+            <div class="state-delay">médio</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card warning">
+            <div class="state-abbr">CE</div>
+            <div class="state-delay">médio</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card warning">
+            <div class="state-abbr">BA</div>
+            <div class="state-delay">médio</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card warning">
+            <div class="state-abbr">PE</div>
+            <div class="state-delay">médio</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card good">
+            <div class="state-abbr">SP</div>
+            <div class="state-delay">baixo</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card good">
+            <div class="state-abbr">RJ</div>
+            <div class="state-delay">baixo</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card good">
+            <div class="state-abbr">PR</div>
+            <div class="state-delay">baixo</div>
+            <div class="state-label">atraso</div>
+          </div>
+          <div class="state-card good">
+            <div class="state-abbr">RS</div>
+            <div class="state-delay">baixo</div>
+            <div class="state-label">atraso</div>
+          </div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--red)"></div>
+            Zona crítica (+15% atraso)
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--gold)"></div>
+            Zona de atenção (8–15%)
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--teal)"></div>
+            Zona estável (&lt;8%)
+          </div>
+          <div class="legend-item" style="margin-left: auto; font-size: 11px">
+            ★ BTG Pactual: +74% galpões no Nordeste até 2026 — janela de
+            investimento aberta
+          </div>
+        </div>
+        <div class="slide-num">06</div>
+      </section>
+
+      <!-- SLIDE 7 — MÓVEIS -->
+      <section class="slide" id="s7">
+        <div>
+          <div class="slide-label">Categoria Estratégica</div>
+          <h2>MÓVEIS:<br /><em>O MAIOR DESAFIO</em><br />VIRA OPORTUNIDADE</h2>
+          <p>
+            Itens grandes, frágeis, dependência de operadores não
+            especializados. O frete chega a
+            <strong style="color: var(--white)">30% do valor do produto</strong
+            >. Mas o ticket médio elevado transforma a categoria no maior driver
+            de ROI — se a logística for resolvida.
+          </p>
+          <table class="compare-table">
+            <tr>
+              <th>Indicador</th>
+              <th>Olist (atual)</th>
+              <th>Mercados maduros</th>
+            </tr>
+            <tr>
+              <td>Frete / Valor do produto</td>
+              <td class="bad-val">~30%</td>
+              <td class="good-val">&lt;15%</td>
+            </tr>
+            <tr>
+              <td>Modelo de entrega</td>
+              <td class="bad-val">Entrega na porta</td>
+              <td class="good-val">White Glove</td>
+            </tr>
+            <tr>
+              <td>Montagem incluída</td>
+              <td class="bad-val">Não</td>
+              <td class="good-val">Sim</td>
+            </tr>
+            <tr>
+              <td>Distribuição</td>
+              <td class="bad-val">Centralizada (SE)</td>
+              <td class="good-val">Hubs regionais</td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <div class="slide-label" style="margin-bottom: 16px">
+            Iniciativas com alto potencial
+          </div>
+          <div class="opp-list">
+            <div class="opp-item">
+              <div class="opp-icon">🏭</div>
+              <div class="opp-text">
+                <strong>Hubs Regionais (modelo IKEA)</strong>Flat packs + CDs
+                próximos ao consumidor cortam frete em até 50% nas regiões
+                críticas.
+              </div>
+            </div>
+            <div class="opp-item">
+              <div class="opp-icon">🔄</div>
+              <div class="opp-text">
+                <strong>Cross-docking Especializado</strong>Consolidação de
+                cargas em polos moveleiros reduz custo por m³ e aumenta
+                densidade logística.
+              </div>
+            </div>
+            <div class="opp-item">
+              <div class="opp-icon">🤖</div>
+              <div class="opp-text">
+                <strong>Cubagem Inteligente no Checkout</strong>Algoritmo
+                direciona pedidos para a transportadora ideal, reduzindo avarias
+                e melhorando SLA.
+              </div>
+            </div>
+            <div class="opp-item">
+              <div class="opp-icon">📍</div>
+              <div class="opp-text">
+                <strong>Ship-from-Store no N/NE</strong>Estoques locais como
+                pontos de distribuição cortam lead time e elevam NPS nas zonas
+                críticas.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-num">07</div>
+      </section>
+
+      <!-- SLIDE 8 — RECOMENDAÇÕES -->
+      <section class="slide" id="s8">
+        <div class="slide-label">Agenda Estratégica</div>
+        <h2>3 PILARES PARA <span>TRANSFORMAR</span> A OPERAÇÃO</h2>
+        <div class="recs-grid">
+          <div class="rec-card">
+            <div class="rec-num">1</div>
+            <div class="rec-icon">🗺️</div>
+            <div class="rec-title">Descentralização da Malha Logística</div>
+            <div class="rec-body">
+              Centros de distribuição no Norte e Nordeste, aproveitando a
+              expansão de 74% em galpões prevista para a região. Quem se
+              antecipar paga menos e domina o mercado emergente.
+            </div>
+            <div class="rec-impact">
+              Redução de lead time + queda no custo de frete por pedido
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-num">2</div>
+            <div class="rec-icon">⚡</div>
+            <div class="rec-title">
+              Flexibilidade Operacional e Redução do Gargalo Inicial
+            </div>
+            <div class="rec-body">
+              Contratação temporária em períodos de pico (Black Friday, Natal)
+              para zerar os 3 dias perdidos entre aprovação e postagem — 25% do
+              lead time total eliminável sem grande investimento fixo.
+            </div>
+            <div class="rec-impact">
+              +SLA em picos sazonais, -atraso na origem, -churn
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-num">3</div>
+            <div class="rec-icon">🧠</div>
+            <div class="rec-title">Inteligência Preditiva e Automação</div>
+            <div class="rec-body">
+              IA para previsão de demanda, roteirização inteligente e SLA
+              dinâmico. Automação do atendimento para resolução rápida de
+              falhas. Dados transformados em decisão em tempo real.
+            </div>
+            <div class="rec-impact">
+              +NPS, -custo de atendimento, +previsibilidade
+            </div>
+          </div>
+        </div>
+        <div class="slide-num">08</div>
+      </section>
+
+      <!-- SLIDE 9 — CONCLUSÃO -->
+      <section class="slide" id="s9">
+        <div>
+          <div class="slide-label">Visão Estratégica</div>
+          <h2>
+            LOGÍSTICA NÃO<br />É CUSTO.<br />É
+            <span>VANTAGEM<br />COMPETITIVA.</span>
+          </h2>
+          <p>
+            A Olist provou que crescimento sem eficiência logística pressiona
+            margens, destrói satisfação e acelera churn. As empresas que
+            resolverem a logística agora capturarão o mercado brasileiro de
+            forma sustentável.
+          </p>
+          <p>
+            Cada ponto percentual de melhoria no SLA se converte diretamente em
+            NPS, LTV e receita futura.
+          </p>
+        </div>
+        <div class="pillars">
+          <div class="slide-label" style="margin-bottom: 8px">
+            Os 3 pilares do futuro
+          </div>
+          <div class="pillar">
+            <div class="pillar-n">1</div>
+            <div class="pillar-text">
+              <div class="pillar-title">Descentralizar</div>
+              <div class="pillar-sub">
+                Aproximar estoque do cliente, reduzir distâncias e custos
+              </div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-n">2</div>
+            <div class="pillar-text">
+              <div class="pillar-title">Flexibilizar</div>
+              <div class="pillar-sub">
+                Operação ágil, responsiva a picos, sem custo fixo excessivo
+              </div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-n">3</div>
+            <div class="pillar-text">
+              <div class="pillar-title">Prever e Automatizar</div>
+              <div class="pillar-sub">
+                IA como motor de eficiência e experiência do cliente
+              </div>
+            </div>
+          </div>
+          <div class="insight-bar" style="margin-top: 8px">
+            <div class="insight-icon">🎯</div>
+            <p style="font-size: 13px">
+              Quem investir em logística hoje no Brasil não está pagando por
+              entrega — está
+              <strong>comprando fidelização, reputação e mercado</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="bg-quote">DATA ANALYTICS · POSTECH · FIAP · 2026</div>
+        <div class="slide-num">09</div>
+      </section>
+
+      <!-- SLIDE 10 — ENCERRAMENTO -->
+      <section class="slide" id="s10">
+        <div class="bg-glow"></div>
+        <div class="group-label">POSTECH · Data Analytics · Fase 1 · 2026</div>
+        <h2>
+          OBRIGADO.<br /><span>AGORA É HORA<br />DE AGIR.</span>
+        </h2>
+        <p class="tagline">
+          O diagnóstico está feito. Os dados apontam o caminho. A logística
+          eficiente é a diferença entre crescer e escalar.
+        </p>
+        <div class="names-row">
+          <span class="name-chip">Amanda Raim</span>
+          <span class="name-chip">Gabriel Gianini</span>
+          <span class="name-chip">Jacqueline Costa</span>
+          <span class="name-chip">Jessica Gonçalves</span>
+          <span class="name-chip">Matheus Oliveira</span>
+        </div>
+        <div class="slide-num">10</div>
+      </section>
+    </div>
+    <!-- slides-container -->
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const navDots = document.getElementById("navDots");
+      const navCounter = document.getElementById("navCounter");
+      const progressBar = document.getElementById("progressBar");
+      const TOTAL = slides.length;
+
+      // Build nav dots
+      slides.forEach((_, i) => {
+        const btn = document.createElement("button");
+        btn.className = "nav-dot" + (i === 0 ? " active" : "");
+        btn.onclick = () => slides[i].scrollIntoView({ behavior: "smooth" });
+        navDots.appendChild(btn);
+      });
+
+      // Intersection observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              const idx = Array.from(slides).indexOf(entry.target);
+              document.querySelectorAll(".nav-dot").forEach((d, i) => {
+                d.classList.toggle("active", i === idx);
+              });
+              navCounter.textContent =
+                String(idx + 1).padStart(2, "0") +
+                " / " +
+                String(TOTAL).padStart(2, "0");
+              progressBar.style.width = ((idx + 1) / TOTAL) * 100 + "%";
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+
+      slides.forEach((s) => observer.observe(s));
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        const visible = Array.from(slides).findIndex((s) =>
+          s.classList.contains("visible"),
+        );
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          const next = slides[Math.min(visible + 1, TOTAL - 1)];
+          next?.scrollIntoView({ behavior: "smooth" });
+        }
+        if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          const prev = slides[Math.max(visible - 1, 0)];
+          prev?.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    </script>
+  </body>
+</html>
