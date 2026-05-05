@@ -2,9 +2,42 @@
 
 ## Estrutura do Projeto
 
-- `src/` — Notebooks e scripts de análise de dados (pipeline completo, modularizado por etapa)
-- `docs/` — Documentação do projeto (relatório acadêmico, PDF)
-- `presentation/` — Arquivos de apresentação (slides, HTML, PDF)
+```text
+main/
+├── src/                # Notebooks e scripts de análise de dados
+│   ├── 01_exploracao_dados.ipynb
+│   ├── 02_tratamento_preprocessamento.ipynb
+│   ├── ...             # Demais notebooks do pipeline
+│   └── 10_recomendacoes.ipynb
+├── docs/               # Documentação do projeto (relatório acadêmico, PDF)
+│   └── documentacao_postech.pdf
+├── data/
+│   ├── raw/            # Bases de dados originais (CSV do Olist, etc.)
+│   │   ├── olist_customers_dataset.csv
+│   │   ├── olist_geolocation_dataset.csv
+│   │   ├── olist_order_items_dataset.csv
+│   │   ├── olist_order_payments_dataset.csv
+│   │   ├── olist_order_reviews_dataset.csv
+│   │   ├── olist_orders_dataset.csv
+│   │   ├── olist_products_dataset.csv
+│   │   ├── olist_sellers_dataset.csv
+│   │   └── product_category_name_translation.csv
+│   └── processed/      # Dados gerados pelo pipeline (pkl, csv finais, etc.)
+│       ├── base_analitica_final.csv
+│       ├── df_items_agg.pkl
+│       ├── df_orders_clean.pkl
+│       ├── df_orders_delivered.pkl
+│       ├── df_products_clean.pkl
+│       └── df_reviews_clean.pkl
+├── index.html          # Página de apresentação do projeto (GitHub Pages)
+├── README.md           # Este arquivo
+
+
+## Página de Apresentação
+
+A apresentação do projeto está disponível via GitHub Pages, acessando diretamente o arquivo index.html na raiz do repositório. Basta acessar:
+
+https://jquissi.github.io/olist/
 
 ## Descrição
 
